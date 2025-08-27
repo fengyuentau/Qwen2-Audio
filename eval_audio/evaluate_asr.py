@@ -30,7 +30,8 @@ basic_normalizer = BasicTextNormalizer()
 
 from tqdm import tqdm
 
-from transformers import AutoProcessor, Qwen2AudioForConditionalGeneration
+# from transformers import AutoProcessor, Qwen2AudioForConditionalGeneration
+from transformers import Qwen2_5OmniForConditionalGeneration, Qwen2_5OmniProcessor
 
 PUNCS = '!,.?;:'
 
@@ -180,11 +181,18 @@ if __name__ == '__main__':
 
     torch.cuda.set_device(int(os.getenv('LOCAL_RANK', 0)))
 
-    model = Qwen2AudioForConditionalGeneration.from_pretrained(
-        args.checkpoint, device_map='cuda', torch_dtype='auto', trust_remote_code=True).eval()
+    # model = Qwen2AudioForConditionalGeneration.from_pretrained(
+    #     args.checkpoint, device_map='cuda', torch_dtype='auto', trust_remote_code=True).eval()
+    model = Qwen2_5OmniForConditionalGeneration.from_pretrained(
+        args.checkpoint,
+        torch_dtype=torch.bfloat16,
+        device_map="auto",
+        attn_implementation="flash_attention_2",
+    ).eval()
 
-    processor = AutoProcessor.from_pretrained(args.checkpoint)
-    processor.tokenizer.padding_side = 'left'
+    # processor = AutoProcessor.from_pretrained(args.checkpoint)
+    # processor.tokenizer.padding_side = 'left'
+    processor = Qwen2_5OmniProcessor.from_pretrained(args.checkpoint)
 
     random.seed(args.seed)
     dataset = AudioDataset(
