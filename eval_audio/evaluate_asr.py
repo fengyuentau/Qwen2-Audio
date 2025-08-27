@@ -35,12 +35,12 @@ from transformers import AutoProcessor, Qwen2AudioForConditionalGeneration
 PUNCS = '!,.?;:'
 
 ds_collections = {
-    'librispeech': {'path': 'asr/librispeech_eval.jsonl','language': 'en'},
-    'aishell2': {'path': 'asr/aishell2_eval.jsonl', 'language': 'zh'},
-    'cv15_en': {'path': 'asr/cv15_asr_en_eval.jsonl', 'language': 'en'},
-    'cv15_zh': {'path': 'asr/cv15_asr_zh_eval.jsonl', 'language': 'zh'},
-    'cv15_yue': {'path': 'asr/cv15_asr_yue_eval.jsonl', 'language': 'yue'},
-    'cv15_fr': {'path': 'asr/cv15_asr_fr_eval.jsonl', 'language': 'fr'},
+    # 'librispeech': {'path': 'asr/librispeech_eval.jsonl','language': 'en'},
+    # 'aishell2': {'path': 'asr/aishell2_eval.jsonl', 'language': 'zh'},
+    # 'cv15_en': {'path': 'asr/cv15_asr_en_eval.jsonl', 'language': 'en'},
+    # 'cv15_zh': {'path': 'asr/cv15_asr_zh_eval.jsonl', 'language': 'zh'},
+    # 'cv15_yue': {'path': 'asr/cv15_asr_yue_eval.jsonl', 'language': 'yue'},
+    # 'cv15_fr': {'path': 'asr/cv15_asr_fr_eval.jsonl', 'language': 'fr'},
     'fluers_zh': {'path': 'asr/fleurs_asr_zh_eval.jsonl', 'language': 'zh'},
 }
 
