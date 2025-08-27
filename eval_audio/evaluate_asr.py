@@ -42,7 +42,7 @@ ds_collections = {
     # 'cv15_zh': {'path': 'asr/cv15_asr_zh_eval.jsonl', 'language': 'zh'},
     # 'cv15_yue': {'path': 'asr/cv15_asr_yue_eval.jsonl', 'language': 'yue'},
     # 'cv15_fr': {'path': 'asr/cv15_asr_fr_eval.jsonl', 'language': 'fr'},
-    'fluers_zh': {'path': 'asr/fleurs_asr_zh_eval.jsonl', 'language': 'zh'},
+    'fluers_zh': {'path': '/workspace/datasets/fleurs_asr_zh_eval.jsonl', 'language': 'zh'},
 }
 
 
