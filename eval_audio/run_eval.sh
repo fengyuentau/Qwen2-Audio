@@ -9,6 +9,6 @@ do
         evaluate_asr.py \
         --checkpoint $checkpoint \
         --dataset $ds \
-        --batch-size 20 \
+        --batch-size 1 \
         --num-workers 2
 done

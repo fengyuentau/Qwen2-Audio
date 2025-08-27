@@ -85,7 +85,7 @@ def collate_fn(inputs, processor):
     gt = [_['gt'] for _ in inputs]
     audio_path = [_['audio'] for _ in inputs]
     input_audios = [ffmpeg_read(read_audio(_['audio']),sampling_rate=processor.feature_extractor.sampling_rate) for _ in inputs]
-    inputs = processor(text=input_texts, audios=input_audios, images=None, videos=None, sampling_rate=processor.feature_extractor.sampling_rate, return_tensors="pt", padding=True)
+    inputs = processor(text=input_texts, audio=input_audios, images=None, videos=None, sampling_rate=processor.feature_extractor.sampling_rate, return_tensors="pt", padding=True)
     return inputs, audio_path, source, gt
 
 
@@ -186,7 +186,7 @@ if __name__ == '__main__':
     model = Qwen2_5OmniForConditionalGeneration.from_pretrained(
         args.checkpoint,
         torch_dtype=torch.bfloat16,
-        device_map="auto",
+        device_map="cuda",
         attn_implementation="flash_attention_2",
     ).eval()
 
@@ -213,7 +213,8 @@ if __name__ == '__main__':
     rets = []
     audio_paths = []
     for _, (inputs, audio_path, source, gt) in tqdm(enumerate(data_loader)):
-        inputs['input_ids'] = inputs['input_ids'].to('cuda')
+        inputs['input_ids'] = inputs['input_ids']
+        inputs = inputs.to(model.device).to(model.dtype)
         output_ids = model.generate(**inputs, max_new_tokens=256, min_new_tokens=1, do_sample=False)
         output_ids = output_ids[:, inputs.input_ids.size(1):]
         output = processor.batch_decode(output_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)
