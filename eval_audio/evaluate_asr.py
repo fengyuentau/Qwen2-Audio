@@ -85,7 +85,7 @@ def collate_fn(inputs, processor):
     gt = [_['gt'] for _ in inputs]
     audio_path = [_['audio'] for _ in inputs]
     input_audios = [ffmpeg_read(read_audio(_['audio']),sampling_rate=processor.feature_extractor.sampling_rate) for _ in inputs]
-    inputs = processor(text=input_texts, audios=input_audios, sampling_rate=processor.feature_extractor.sampling_rate, return_tensors="pt", padding=True)
+    inputs = processor(text=input_texts, audios=input_audios, images=None, videos=None, sampling_rate=processor.feature_extractor.sampling_rate, return_tensors="pt", padding=True)
     return inputs, audio_path, source, gt
 
 
